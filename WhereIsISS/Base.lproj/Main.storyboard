@@ -22,11 +22,22 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="X7E-9x-H5T"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dj1-HD-DIs">
+                                <rect key="frame" x="470" y="501" width="90" height="59"/>
+                                <state key="normal" backgroundImage="map_setting_view_btn_satellite">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changMap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="FQm-lb-r1o"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="njO-Do-Ced" secondAttribute="centerY" id="PhV-lC-qSo"/>
                             <constraint firstAttribute="centerX" secondItem="njO-Do-Ced" secondAttribute="centerX" id="SiS-00-Waq"/>
+                            <constraint firstItem="dj1-HD-DIs" firstAttribute="bottom" secondItem="njO-Do-Ced" secondAttribute="bottom" constant="-40" id="TUO-aZ-PTf" userLabel="Bottom Alignment - (-100) - Button - Map View"/>
+                            <constraint firstItem="dj1-HD-DIs" firstAttribute="trailing" secondItem="njO-Do-Ced" secondAttribute="trailing" constant="-40" id="rks-r0-Ms2" userLabel="Trailing Alignment - (-100) - Button - Map View"/>
                             <constraint firstAttribute="width" secondItem="njO-Do-Ced" secondAttribute="width" id="sxE-rs-ZSf"/>
                             <constraint firstAttribute="height" secondItem="njO-Do-Ced" secondAttribute="height" id="xDS-LJ-X7x"/>
                         </constraints>
@@ -37,6 +48,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-361" y="233"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="map_setting_view_btn_satellite" width="90" height="59"/>
+    </resources>
 </document>

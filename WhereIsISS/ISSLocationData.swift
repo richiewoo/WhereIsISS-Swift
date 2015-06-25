@@ -12,7 +12,7 @@ import Alamofire
 
 class ISSLocationData:NSObject {
     let iss_location_url = "http://api.open-notify.org/iss-now.json"
-    dynamic var location = CLLocationCoordinate2DMake(37.786996, -122.440100);
+    dynamic var location = CLLocationCoordinate2DMake(37.786996, -122.440100);//I'm in San Francisco now
     var fetchFlag = false
     
     override init(){
@@ -34,13 +34,11 @@ class ISSLocationData:NSObject {
     
     func startGetLocation() {
         fetchFlag = true;
-        weak var selfWeak = self;
         let timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
         dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, NSEC_PER_SEC, 0);
         dispatch_source_set_event_handler(timer){
-            if selfWeak!.fetchFlag == true {
-                selfWeak!.startLocationReq()
-                
+            if self.fetchFlag == true {
+                self.startLocationReq()
             }else{
                 dispatch_source_cancel(timer)
             }

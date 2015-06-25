@@ -21,10 +21,6 @@ class CityAnnotation: NSObject, MKAnnotation {
     var clLoc: CLLocation?
     var clRGeo: CLGeocoder?
     
-//    init(title: String) {
-//        self.title = title
-//    }
-    
     func setCoordinate(newCoordinate: CLLocationCoordinate2D){
         self.theCoordinate = newCoordinate
         self.geocodeLocation()

@@ -40,10 +40,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView!{
         // create the annotation view
         let annotationView = CityAnnotation.createViewAnnotationView(mapView, annotation: annotation);
-        annotationView.image = UIImage(named: "icon_iss_img.png");
+        annotationView.image = UIImage(named: "icon_iss_img");
         
         return annotationView
     }
+    
+    @IBAction func changMap(sender: UIButton) {
+        if sender.tag == 0 {
+            sender.tag = 1
+            self.mapView.mapType = .Satellite
+            sender.setImage(UIImage(named: "map_setting_view_btn_normal"), forState: .Normal)
+        }else{
+            sender.tag = 0
+            self.mapView.mapType = .Standard
+            sender.setImage(UIImage(named: "map_setting_view_btn_satellite"), forState: .Normal)
+        }
+    }
+    
     
     deinit {
         locationData.removeObserver(self, forKeyPath: "location", context: &observeContext)
