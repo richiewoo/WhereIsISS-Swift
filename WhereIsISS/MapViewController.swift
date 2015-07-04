@@ -9,12 +9,20 @@
 import UIKit
 import MapKit
 
+extension Double {
+    func format(f: String) -> String {
+        return NSString(format: "%\(f)f", self) as String
+    }
+}
+
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var locationDis: UILabel!
     private var observeContext = 0
     private let locationData = ISSLocationData()
     private let cityAnnotation = CityAnnotation()
+    private var traceOverlay :MKPolylineRenderer?
     private var isFirstUpdate = true
     
     override func viewDidLoad() {
@@ -30,13 +38,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if context == &observeContext {
             // add the annotation
             cityAnnotation.setCoordinate(locationData.location)
-            self.mapView.
             
             if isFirstUpdate {
                 //make map move and the the annotation be in center may be better
-                self.mapView.setCenterCoordinate(locationData.location, animated: true);
+                self.mapView.setCenterCoordinate(locationData.location, animated: false);
                 isFirstUpdate = false
+            }else {
+                self.mapView.setCenterCoordinate(self.mapView.centerCoordinate, animated: false);
             }
+            
+            let lo = locationData.location.longitude.format(".3")
+            let la = locationData.location.latitude.format(".3")
+            locationDis.text = "longitude: \(lo)  latitude: \(la)"
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
