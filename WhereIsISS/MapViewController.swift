@@ -15,6 +15,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private var observeContext = 0
     private let locationData = ISSLocationData()
     private let cityAnnotation = CityAnnotation()
+    private var isFirstUpdate = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,16 +23,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         locationData.addObserver(self, forKeyPath: "location", options: .New, context: &observeContext)
         locationData.startGetLocation()
+        self.mapView.addAnnotation(cityAnnotation)
     }
 
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if context == &observeContext {
             // add the annotation
             cityAnnotation.setCoordinate(locationData.location)
-            self.mapView.addAnnotation(cityAnnotation)
+            self.mapView.
             
-            //make map move and the the annotation be in center may be better
-            self.mapView.setCenterCoordinate(locationData.location, animated: true);
+            if isFirstUpdate {
+                //make map move and the the annotation be in center may be better
+                self.mapView.setCenterCoordinate(locationData.location, animated: true);
+                isFirstUpdate = false
+            }
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
@@ -57,6 +62,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    @IBAction func location() {
+        self.mapView.setCenterCoordinate(locationData.location, animated: true);
+    }
     
     deinit {
         locationData.removeObserver(self, forKeyPath: "location", context: &observeContext)
